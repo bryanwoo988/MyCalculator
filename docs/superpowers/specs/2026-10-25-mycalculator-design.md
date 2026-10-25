@@ -83,7 +83,7 @@ App Store 上算财务计划、房贷、车贷、供期和利息的 App 几乎�
   - 去掉 Read Aloud
 - 8 种主题的色值直接从 Entomology `css/app.css` 搬过来。
 - 中文用简体（系列 App 的 `zh`）。
-- 参考图片在 `docs/reference/`：`home-list-reference.jpg`（首页列表）、`settings-reference.jpg`（Settings）、`app-icon-source.png`（App 图标的起点）。
+- 参考图片在 `docs/reference/`：`home-list-reference.jpg`（首页列表）、`settings-reference.jpg`（Settings）、`app-logo.png`（App logo，Bryan 指定，直接使用）。
 - 首页：五个计算器的列表，样式参考 Bryan 提供的截图（圆角卡片、左边图标、标题和一行说明），但不放锁头和 FREE 标签。
 - About：QR、网址、"分享 App 链接"按钮、`WhatsNew.label()` 版本号和日期、更新记录、规则来源列表，以及免责声明（"估算结果，仅供参考，不构成财务建议"）。
 
@@ -195,7 +195,7 @@ App Store 上算财务计划、房贷、车贷、供期和利息的 App 几乎�
 - 文件结构和模块怎么拆（参照 Entomology 的风格：一个模块一件事，逻辑和 DOM 分开，方便测试）。
 - 图表的具体样式。
 - 计算器图标（参考截图：趋势线、银行、房子、车、收据）。
-- App 图标：Bryan 提供了一张钱、硬币加计算器的图片（`docs/reference/app-icon-source.png`），可以用作 App 图标的起点，再参照 Entomology `tools/make-icons.py` 生成各种尺寸。
+- App logo 已由 Bryan 指定：`docs/reference/app-logo.png`（钱、硬币加计算器），直接使用，不重新设计。实现者只需要参照 Entomology `tools/make-icons.py` 生成 PWA 需要的各种尺寸（192、512、maskable、apple-touch-icon、favicon）。maskable 版本要留安全边距，不能裁掉图案。
 - 输入的默认值。
 - 金额格式（RM、千位逗号、小数位）。
 - 每个计算器的测试例子要找哪些来源来对数。
