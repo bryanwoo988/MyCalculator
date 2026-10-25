@@ -1,5 +1,20 @@
 [
   {
+    "v": "1.4.0",
+    "date": "2026-10-25",
+    "notes": {
+      "en": [
+        "EPF: “Project until age” is gone. One “Retire at age” now sets when contributions stop, which balance is shown, and when retirement income starts."
+      ],
+      "zh": [
+        "EPF：拿掉了“预测到几岁”。现在只要填“几岁退休”：缴纳到这个年龄为止，显示这个年龄的余额，退休收入也从这里开始。"
+      ],
+      "ms": [
+        "KWSP: “Unjurkan hingga umur” telah dibuang. Satu “Bersara pada umur” kini menentukan bila caruman berhenti, baki yang ditunjukkan, dan bila pendapatan persaraan bermula."
+      ]
+    }
+  },
+  {
     "v": "1.3.2",
     "date": "2026-10-25",
     "notes": {
