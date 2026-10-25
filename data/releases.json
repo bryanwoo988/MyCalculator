@@ -1,5 +1,20 @@
 [
   {
+    "v": "1.3.0",
+    "date": "2026-10-25",
+    "notes": {
+      "en": [
+        "EPF: new optional “Retirement income” section — how much you can spend each month from retirement until the age you choose, rising with inflation, also shown in today’s money."
+      ],
+      "zh": [
+        "EPF：新增可选的“退休后的收入”——算出从退休到你选的年龄，每个月可以花多少，每年随通胀增加，也换算成今天的钱。"
+      ],
+      "ms": [
+        "KWSP: bahagian pilihan baharu “Pendapatan persaraan” — berapa yang boleh dibelanjakan setiap bulan dari persaraan hingga umur pilihan anda, naik mengikut inflasi, juga dalam wang hari ini."
+      ]
+    }
+  },
+  {
     "v": "1.2.0",
     "date": "2026-10-25",
     "notes": {
