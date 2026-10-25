@@ -1,0 +1,23 @@
+{
+  "id": "epf",
+  "rev": 1,
+  "asOf": "2026-10-25",
+  "reviewBy": "2027-03-01",
+  "sources": [
+    { "id": "kwsp-rates", "name": "KWSP contribution rates (as summarised by Talenox / AJobThing)", "url": "https://help.talenox.com/en/articles/2488717-epf-contribution-rate", "via": "search" },
+    { "id": "kwsp-accounts", "name": "EPF account restructuring, 11 May 2024 (RinggitPlus)", "url": "https://ringgitplus.com/en/blog/the-experts-corner/a-guide-to-epf-accounts-and-whats-new-in-2026.html", "via": "search" },
+    { "id": "kwsp-dividend", "name": "EPF dividend history (RinggitPlus)", "url": "https://ringgitplus.com/en/guides/historical-epf-dividend-rates/", "via": "search" }
+  ],
+  "employee": { "under60": 11, "from60": 0, "source": "kwsp-rates" },
+  "employer": { "under60LowWage": 13, "under60HighWage": 12, "wageThreshold": 5000, "from60": 4, "source": "kwsp-rates" },
+  "split": { "persaraan": 75, "sejahtera": 15, "fleksibel": 10, "untilAge": 55, "source": "kwsp-accounts" },
+  "dividends": [
+    { "year": 2025, "rate": 6.15 },
+    { "year": 2024, "rate": 6.30 },
+    { "year": 2023, "rate": 5.50 },
+    { "year": 2022, "rate": 5.35 },
+    { "year": 2021, "rate": 6.10 }
+  ],
+  "dividendSource": "kwsp-dividend",
+  "minDividend": 2.5
+}

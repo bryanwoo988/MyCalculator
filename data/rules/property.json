@@ -1,0 +1,35 @@
+{
+  "id": "property",
+  "rev": 1,
+  "asOf": "2026-10-25",
+  "reviewBy": "2027-01-01",
+  "sources": [
+    { "id": "stamp-mot", "name": "Stamp Act 1949, First Schedule item 32(a) — rates as summarised by PropertyGuru / propcashflow", "url": "https://www.propertyguru.com.my/property-guides/sale-purchase-agreement-stamp-duty-legal-fees-malaysian-property-14089", "via": "search" },
+    { "id": "sro2023", "name": "Solicitors' Remuneration Order 2023 — scale as summarised by propcashflow", "url": "https://propcashflow.my/blog/legal-fees-property-malaysia/", "via": "search" },
+    { "id": "sst8", "name": "Service tax 8% from 1 March 2024 (BDO)", "url": "https://bdo.global/en-gb/insights/tax/indirect-tax/malaysia-service-tax-rate-increased-and-scope-of-tax-expanded", "via": "search" },
+    { "id": "first-home", "name": "Budget 2026: first-home stamp duty exemption until 31 Dec 2027 (SAYS)", "url": "https://says.com/my/news/belanjawan2026-first-time-home-buyers-to-enjoy-stamp-duty-exemption-until-2027", "via": "search" },
+    { "id": "foreign-8", "name": "Finance Bill 2025: 8% stamp duty for foreign buyers of residential property (Skrine)", "url": "https://www.skrine.com/insights/alerts/november-2025/proposed-amendments-to-the-stamp-act", "via": "search" }
+  ],
+  "motStampDuty": {
+    "tiers": [
+      { "upTo": 100000, "rate": 1 },
+      { "upTo": 500000, "rate": 2 },
+      { "upTo": 1000000, "rate": 3 },
+      { "upTo": null, "rate": 4 }
+    ],
+    "source": "stamp-mot"
+  },
+  "foreignResidentialRate": { "rate": 8, "confirmed": false, "source": "foreign-8" },
+  "loanStampDutyRate": { "rate": 0.5, "source": "stamp-mot" },
+  "firstHome": { "maxPrice": 500000, "spaUntil": "2027-12-31", "motExemptPct": 100, "loanExemptPct": 100, "source": "first-home" },
+  "legalFees": {
+    "tiers": [
+      { "upTo": 500000, "rate": 1.25 },
+      { "upTo": 7500000, "rate": 1.0 }
+    ],
+    "aboveNegotiable": true,
+    "minimum": 500,
+    "source": "sro2023"
+  },
+  "serviceTaxRate": { "rate": 8, "source": "sst8" }
+}

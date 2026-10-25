@@ -1,0 +1,9 @@
+node_modules/
+_site/
+.DS_Store
+# Local tool state created by editor plugins
+.claude-flow/
+.swarm/
+ruvector.db
+*.rvf
+*.rvf.*

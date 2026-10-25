@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MyCalculator</title>
+<meta name="description" content="Free Malaysian finance calculators: compound interest, EPF, home loan, car loan and income tax — offline, in English, 中文 and Bahasa Melayu.">
+<meta name="theme-color" content="#F1F3EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1513" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MyCalculator">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MyCalculator">
+<meta property="og:description" content="Free Malaysian finance calculators — offline, in English, 中文 and BM.">
+<meta property="og:url" content="https://bryanwoo988.github.io/MyCalculator/">
+<meta property="og:image" content="https://bryanwoo988.github.io/MyCalculator/icons/icon-512.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icons/favicon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png">
+<script id="prepaint">
+/* Before the stylesheet paints: apply the saved theme, text size and
+   language, so a dark phone never flashes white. Mirrors prefs.applyToDocument. */
+(function () {
+  var p = {};
+  try { p = JSON.parse(localStorage.getItem('mycalc.prefs.v1') || '{}') || {}; } catch (e) {}
+  var r = document.documentElement;
+  var theme = ['light', 'dark'].indexOf(p.theme) >= 0 ? p.theme : 'auto';
+  var dark = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
+  var side = theme === 'auto' ? (dark ? 'dark' : 'light') : theme;
+  r.dataset.theme = side;
+  var looks = { light: ['classic', 'paper', 'mint', 'lavender'], dark: ['midnight', 'oled', 'slate', 'grape'] };
+  var look = side === 'dark' ? p.darkTheme : p.lightTheme;
+  r.dataset.palette = looks[side].indexOf(look) >= 0 ? look : looks[side][0];
+  var s = [1, 1.15, 1.3].indexOf(p.scale) >= 0 ? p.scale : 1;
+  r.style.setProperty('--font-scale', s);
+  if (['zh', 'en', 'ms'].indexOf(p.lang) >= 0) r.lang = p.lang === 'zh' ? 'zh-Hans' : p.lang;
+})();
+</script>
+<link rel="stylesheet" href="css/app.css">
+<script src="whatsnew.js"></script>
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+<div id="splash" aria-hidden="true">
+  <img src="icons/icon-192.png" alt="" width="96" height="96">
+  <p class="splash-name">MyCalculator</p>
+</div>
+
+<main id="main" tabindex="-1"></main>
+
+<nav class="bottomnav" aria-label="Main">
+  <button type="button" data-nav="home" onclick="location.hash='#/'"></button>
+  <button type="button" data-nav="saved" onclick="location.hash='#/saved'"></button>
+  <button type="button" data-nav="settings" onclick="location.hash='#/settings'"></button>
+</nav>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<div id="picker" class="picker" role="dialog" aria-modal="true" aria-labelledby="picker-title" hidden>
+  <div class="picker-card">
+    <img src="icons/icon-192.png" alt="" width="72" height="72">
+    <h1 id="picker-title"><span>Choose your language</span><span>选择语言</span><span>Pilih bahasa</span></h1>
+    <div class="picker-options">
+      <button type="button" data-lang="en" class="is-default"><span class="opt-name">English</span><span class="opt-line">Finance calculators, free and offline</span></button>
+      <button type="button" data-lang="zh"><span class="opt-name">中文</span><span class="opt-line">免费、离线的财务计算器</span></button>
+      <button type="button" data-lang="ms"><span class="opt-name">Bahasa Melayu</span><span class="opt-line">Kalkulator kewangan, percuma dan luar talian</span></button>
+    </div>
+  </div>
+</div>
+
+<div id="sheet" class="sheet" hidden>
+  <div class="sheet-backdrop" data-action="close-sheet"></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet-head">
+      <h2 class="sheet-title" id="sheet-title"></h2>
+      <button type="button" class="icon-btn sheet-close" data-action="close-sheet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="sheet-body"></div>
+  </div>
+</div>
+
+<div id="print" class="print-only"></div>
+</body>
+</html>
