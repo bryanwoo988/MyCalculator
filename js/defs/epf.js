@@ -12,6 +12,7 @@ export default {
     { id: 'retireAge', type: 'int', def: 60, min: 16, max: 75 },
     { id: 'salary', type: 'money', def: 5000, min: 0 },
     { id: 'growth', type: 'pct', def: 3, min: 0, max: 50 },
+    { id: 'bonusMonths', type: 'number', def: 0, min: 0, max: 24, step: 0.5 },
     { type: 'section', id: 'balances' },
     { id: 'persaraan', type: 'money', def: 50000, min: 0 },
     { id: 'sejahtera', type: 'money', def: 10000, min: 0 },
@@ -42,6 +43,7 @@ export default {
           { key: 'employeeIn', value: e.totals.employee, kind: 'money' },
           { key: 'employerIn', value: e.totals.employer, kind: 'money' },
           { key: 'voluntaryIn', value: e.totals.voluntary, kind: 'money' },
+          ...(v.bonusMonths > 0 ? [{ key: 'bonusPaid', value: e.totals.bonus, kind: 'money' }] : []),
           { key: 'dividendIn', value: e.totals.dividend, kind: 'money' },
           ...(v.employerMode === 'custom' ? [{ key: 'employerRateUsed', value: v.employerRate, kind: 'pct' }] : []),
           { key: 'dividendUsed', value: v.dividend, kind: 'pct' },
@@ -59,7 +61,7 @@ export default {
           ...accounts.map(k => ({ key: 'acc_' + k, kind: 'money' })), { key: 'colTotal', kind: 'money' }],
         rows: e.years.map(y => [Math.round(y.age), y.salary, y.employee, y.employer, y.voluntary, y.dividend, ...accounts.map(k => y[k]), y.total]),
       }],
-      notes: [{ key: 'noteEpfSplit' }, { key: 'noteEpfDividend' }, { key: v.employerMode === 'custom' ? 'noteEpfEmployerCustom' : 'noteEpf60' }],
+      notes: [{ key: 'noteEpfSplit' }, ...(v.bonusMonths > 0 ? [{ key: 'noteEpfBonus' }] : []), { key: 'noteEpfDividend' }, { key: v.employerMode === 'custom' ? 'noteEpfEmployerCustom' : 'noteEpf60' }],
     };
   },
 };

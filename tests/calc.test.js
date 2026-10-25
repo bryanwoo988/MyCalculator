@@ -241,3 +241,15 @@ test('EPF: a custom employer rate replaces the statutory one', () => {
   // Statutory mode ignores a stray custom rate.
   near(epf({ ...base, employerMode: 'statutory', employerRate: 17 }, r).totals.employer, 8000 * 0.12 * 12);
 });
+
+test('EPF: a yearly bonus adds contributions at the monthly-salary rates', () => {
+  const r = rules('epf');
+  const base = { age: 30, endAge: 31, salary: 4000, employeeRate: 11, dividend: 0 };
+  const plain = epf(base, r), withBonus = epf({ ...base, bonusMonths: 2 }, r);
+  near(withBonus.totals.bonus, 8000);
+  near(withBonus.totals.employee - plain.totals.employee, 8000 * 0.11);
+  // The December wage is RM12,000, yet the employer keeps 13% (salary ≤ RM5,000).
+  near(withBonus.totals.employer - plain.totals.employer, 8000 * 0.13);
+  // No bonus after work stops.
+  near(epf({ ...base, bonusMonths: 2, retireAge: 30 }, r).totals.bonus, 0);
+});
