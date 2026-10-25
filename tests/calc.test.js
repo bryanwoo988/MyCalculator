@@ -232,3 +232,12 @@ test('EPF: money after 55 goes to one account; milestones recorded', () => {
   assert.ok(e.milestones[55] && e.milestones[60]);
   assert.ok(e.milestones[60].total > e.milestones[55].total);
 });
+
+test('EPF: a custom employer rate replaces the statutory one', () => {
+  const r = rules('epf');
+  const base = { age: 30, endAge: 31, salary: 8000, employeeRate: 11, dividend: 0 };
+  near(epf(base, r).totals.employer, 8000 * 0.12 * 12);
+  near(epf({ ...base, employerMode: 'custom', employerRate: 17 }, r).totals.employer, 8000 * 0.17 * 12);
+  // Statutory mode ignores a stray custom rate.
+  near(epf({ ...base, employerMode: 'statutory', employerRate: 17 }, r).totals.employer, 8000 * 0.12 * 12);
+});

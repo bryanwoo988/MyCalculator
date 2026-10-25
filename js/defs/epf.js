@@ -18,6 +18,8 @@ export default {
     { id: 'fleksibel', type: 'money', def: 2000, min: 0 },
     { type: 'section', id: 'rates' },
     { id: 'employeeRate', type: 'pct', def: R => R.epf.employee.under60, min: 0, max: 100 },
+    { id: 'employerMode', type: 'select', def: 'statutory', options: [{ v: 'statutory' }, { v: 'custom' }] },
+    { id: 'employerRate', type: 'pct', def: R => R.epf.employer.under60LowWage, min: 0, max: 100, show: v => v.employerMode === 'custom' },
     { id: 'voluntary', type: 'money', def: 0, min: 0 },
     { id: 'dividend', type: 'pct', def: latestDividend, min: 0, max: 20 },
   ],
@@ -41,6 +43,7 @@ export default {
           { key: 'employerIn', value: e.totals.employer, kind: 'money' },
           { key: 'voluntaryIn', value: e.totals.voluntary, kind: 'money' },
           { key: 'dividendIn', value: e.totals.dividend, kind: 'money' },
+          ...(v.employerMode === 'custom' ? [{ key: 'employerRateUsed', value: v.employerRate, kind: 'pct' }] : []),
           { key: 'dividendUsed', value: v.dividend, kind: 'pct' },
         ] },
       ],
@@ -56,7 +59,7 @@ export default {
           ...accounts.map(k => ({ key: 'acc_' + k, kind: 'money' })), { key: 'colTotal', kind: 'money' }],
         rows: e.years.map(y => [Math.round(y.age), y.salary, y.employee, y.employer, y.voluntary, y.dividend, ...accounts.map(k => y[k]), y.total]),
       }],
-      notes: [{ key: 'noteEpfSplit' }, { key: 'noteEpfDividend' }, { key: 'noteEpf60' }],
+      notes: [{ key: 'noteEpfSplit' }, { key: 'noteEpfDividend' }, { key: v.employerMode === 'custom' ? 'noteEpfEmployerCustom' : 'noteEpf60' }],
     };
   },
 };

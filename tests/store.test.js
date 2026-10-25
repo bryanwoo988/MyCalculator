@@ -81,3 +81,18 @@ test('xlsx: zip structure and helpers', () => {
   assert.equal(dv.getUint32(bytes.length - 22, true), 0x06054b50);
   assert.equal(dv.getUint16(bytes.length - 22 + 10, true), 6); // 5 parts + 1 sheet
 });
+
+test('pdf: xref offsets point at their objects', async () => {
+  const { pdfFromJpegs } = await import('../js/export/pdf.js');
+  const fake = { width: 2, height: 2, jpeg: new Uint8Array([0xff, 0xd8, 0, 1, 2, 0xff, 0xd9]) };
+  const bytes = pdfFromJpegs([fake, fake]);
+  const text = new TextDecoder('latin1').decode(bytes);
+  assert.ok(text.startsWith('%PDF-1.4'));
+  assert.ok(text.trimEnd().endsWith('%%EOF'));
+  assert.match(text, /\/Count 2/);
+  const xref = Number(text.match(/startxref\n(\d+)/)[1]);
+  assert.equal(text.slice(xref, xref + 4), 'xref');
+  const offsets = [...text.slice(xref).matchAll(/^(\d{10}) 00000 n $/gm)].map(m => Number(m[1]));
+  assert.equal(offsets.length, 8); // catalog, pages, 3 per page
+  offsets.forEach((o, i) => assert.equal(text.slice(o, o + `${i + 1} 0 obj`.length), `${i + 1} 0 obj`));
+});

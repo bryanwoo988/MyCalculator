@@ -16,6 +16,7 @@ import { renderResult, rowLabel } from './ui/result.js';
 import { el, $, icon } from './ui/dom.js';
 import { formatValue } from './format.js';
 import { toWorkbook, toPrintHtml } from './export/report.js';
+import { toPdf } from './export/pdf.js';
 import { toSVG } from './qrcode.js';
 import { APP_URL } from './config.js';
 
@@ -261,7 +262,19 @@ async function deliver(blob, filename) {
   // On a phone the share sheet is the way to put a file in Files / WhatsApp;
   // desktops download.
   if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({ files: [file] })) {
-    try { await navigator.share({ files: [file], title: filename }); return; } catch (e) { if (e.name === 'AbortError') return; }
+    try { await navigator.share({ files: [file], title: filename }); return; } catch (e) {
+      if (e.name === 'AbortError') return;
+      // The share sheet needs a fresh tap; building the file may have used up
+      // the first one. Offer a button that opens it.
+      if (e.name === 'NotAllowedError') {
+        const btn = el('button', { type: 'button', class: 'button', onclick: () => {
+          closeSheet();
+          navigator.share({ files: [file], title: filename }).catch(() => {});
+        } }, icon('share'), t('shareFile'));
+        openSheet(t('fileReady'), el('div', { class: 'stack' }, el('p', { class: 'muted' }, filename), btn));
+        return;
+      }
+    }
   }
   const a = el('a', { href: URL.createObjectURL(blob), download: filename });
   document.body.append(a);
@@ -274,14 +287,31 @@ function exportXlsx(def, values, result, rec) {
   deliver(new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }), fileBase(def, rec) + '.xlsx');
 }
 
-function exportPdf(def, values, result, rec) {
+/* An iPhone home-screen app cannot open the print screen (window.print does
+   nothing there), so it gets a PDF file built in the page and handed to the
+   share sheet. Everywhere else the print layout gives a sharper PDF with
+   selectable text. */
+const printBlocked = () => navigator.standalone === true;
+
+async function exportPdf(def, values, result, rec) {
+  if (printBlocked() || typeof window.print !== 'function') {
+    toast(t('pdfMaking'), 10000);
+    try {
+      const bytes = await toPdf(def, values, result, meta(def, rec));
+      $('#toast').hidden = true;
+      await deliver(new Blob([bytes], { type: 'application/pdf' }), fileBase(def, rec) + '.pdf');
+    } catch (e) {
+      console.error(e);
+      toast(t('pdfFailed'));
+    }
+    return;
+  }
   const box = $('#print');
   box.innerHTML = toPrintHtml(def, values, result, meta(def, rec));
   const prevTitle = document.title;
   document.title = fileBase(def, rec); // becomes the PDF's file name
   const done = () => { document.title = prevTitle; box.replaceChildren(); removeEventListener('afterprint', done); };
   addEventListener('afterprint', done);
-  if (typeof window.print !== 'function') { done(); return toast(t('printUnavailable')); }
   window.print();
   toast(t('printHint'), 6000);
 }

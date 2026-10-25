@@ -44,7 +44,8 @@ export function epf(i, rules) {
     if (m > 0 && m % 12 === 0) salary *= 1 + (i.growth || 0) / 100;
     const working = age < (i.retireAge ?? i.endAge);
     const ee = working ? salary * (age >= 60 ? i.employeeRate60 ?? rules.employee.from60 : i.employeeRate) / 100 : 0;
-    const er = working ? salary * employerRate(rules, age, salary) / 100 : 0;
+    const erRate = i.employerMode === 'custom' ? i.employerRate : employerRate(rules, age, salary);
+    const er = working ? salary * erRate / 100 : 0;
     const vol = m % 12 === 0 ? (i.voluntary || 0) : 0;
 
     // Dividend accrues on the opening balance; this month's money waits.
