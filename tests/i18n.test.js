@@ -72,3 +72,13 @@ test('every result label has text, in every mode', () => {
 test('every rule file has a name', () => {
   for (const n of Object.keys(R)) assert.ok(TABLES.en['rule_' + n], n);
 });
+
+test('every chart series has a colour', async () => {
+  const { readFileSync } = await import('node:fs');
+  const css = readFileSync(new URL('../css/app.css', import.meta.url), 'utf8');
+  const most = Math.max(...CALCS.flatMap(def => {
+    const v = { ...defaults(def, R), planRetire: true };
+    return def.compute(v, R).charts.map(c => c.series.length);
+  }));
+  for (let k = 1; k <= most; k++) assert.match(css, new RegExp(`\\.chart \\.s${k} \\{ --c: var\\(--c${k}\\)`), `.s${k}`);
+});

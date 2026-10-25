@@ -228,7 +228,9 @@ test('EPF: dividend on an opening balance', () => {
 test('EPF: money after 55 goes to one account; milestones recorded', () => {
   const r = rules('epf');
   const e = epf({ age: 54, endAge: 61, salary: 3000, employeeRate: 11, dividend: 5 }, r);
-  assert.ok(e.balances.after55 > 0);
+  assert.ok(e.balances.emas > 0);
+  assert.ok(e.balances.akaun55 > 0);
+  near(e.balances.persaraan + e.balances.sejahtera + e.balances.fleksibel, 0);
   assert.ok(e.milestones[55] && e.milestones[60]);
   assert.ok(e.milestones[60].total > e.milestones[55].total);
 });
@@ -279,4 +281,20 @@ test('drawdown: inflation raises the payout yearly and today’s money deflates 
   assert.ok(d.monthly < d.level); // a rising payout starts lower
   near(d.years.at(-1).balance, 0, 0.05);
   assert.equal(drawdown({ balance: 1e6, nowAge: 60, startAge: 80, lifeAge: 70, returnPct: 5, inflation: 3 }), null);
+});
+
+test('EPF: at 55 the three accounts move into Akaun 55; later money goes to Akaun Emas', () => {
+  const r = rules('epf');
+  // No contributions and no dividend: the move itself must keep every ringgit.
+  const e = epf({ age: 54, endAge: 56, salary: 0, employeeRate: 11, dividend: 0, persaraan: 75, sejahtera: 15, fleksibel: 10 }, r);
+  near(e.balances.akaun55, 100);
+  near(e.balances.emas, 0);
+  assert.equal(e.years[0].persaraan, 75); // still separate at the end of 54→55
+  // With salary: Emas holds exactly the contributions made from 55.
+  const w = epf({ age: 55, endAge: 56, salary: 3000, employeeRate: 11, dividend: 0, persaraan: 1000 }, r);
+  near(w.balances.emas, 3000 * 0.24 * 12);
+  near(w.balances.akaun55, 1000);
+  // Dividend earned before the move stays with the money.
+  const d = epf({ age: 54.5, endAge: 55.5, salary: 0, employeeRate: 11, dividend: 12, persaraan: 1000 }, r);
+  near(d.total, 1000 * (1 + 0.01 * 12));
 });

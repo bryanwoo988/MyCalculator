@@ -1,7 +1,7 @@
 /* ===== Tokens =====
    Classic and Midnight are the house look of the Woo Brothers apps (from
    Learn Statistics); the other six looks are shared by every app. Chart
-   colours --c1…--c4 are tuned per side so series stay apart on any look. */
+   colours --c1…--c5 are tuned per side so series stay apart on any look. */
 :root {
   --bg: #F1F3EC; --surface: #FFFFFF; --surface2: #E8EDE3;
   --ink: #1A2622; --ink-soft: #4C5C55; --ink-faint: #7D8C84;
@@ -9,7 +9,7 @@
   --line: #C9D2C6; --line-soft: #DFE5DA;
   --warn: #8A6100; --warn-soft: #F5E7C3;
   --info-soft: #DCE8F5;
-  --c1: var(--accent); --c2: #D08A2E; --c3: #6E7FD1; --c4: #B4547A;
+  --c1: var(--accent); --c2: #D08A2E; --c3: #6E7FD1; --c4: #B4547A; --c5: #9C8A1E;
   --shadow: 0 1px 2px rgba(20, 30, 25, .06), 0 4px 18px rgba(20, 30, 25, .06);
   --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue",
     "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", Arial, sans-serif;
@@ -25,7 +25,7 @@
   --line: #2C3A35; --line-soft: #232E2A;
   --warn: #E0B34A; --warn-soft: #33290F;
   --info-soft: #1C2A3A;
-  --c2: #E3A452; --c3: #8F9DF0; --c4: #E68AAE;
+  --c2: #E3A452; --c3: #8F9DF0; --c4: #E68AAE; --c5: #E2CF5C;
   --shadow: none;
   color-scheme: dark;
 }
@@ -207,14 +207,14 @@ p { margin: 0; }
 .chart text { fill: var(--ink-faint); font: 20px var(--sans); }
 .chart .line { fill: none; stroke-width: 2.5; stroke-linejoin: round; }
 .chart .line.dash { stroke-dasharray: 6 5; }
-.chart .s1 { --c: var(--c1); } .chart .s2 { --c: var(--c2); } .chart .s3 { --c: var(--c3); } .chart .s4 { --c: var(--c4); }
+.chart .s1 { --c: var(--c1); } .chart .s2 { --c: var(--c2); } .chart .s3 { --c: var(--c3); } .chart .s4 { --c: var(--c4); } .chart .s5 { --c: var(--c5); }
 .chart .line { stroke: var(--c); }
 .chart .area { fill: var(--c); fill-opacity: .8; }
 .chart .bar { fill: var(--c); }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .82rem; color: var(--ink-soft); margin-top: 6px; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .sw { width: 12px; height: 12px; border-radius: 3px; background: var(--c); display: inline-block; }
-.sw.s1 { --c: var(--c1); } .sw.s2 { --c: var(--c2); } .sw.s3 { --c: var(--c3); } .sw.s4 { --c: var(--c4); }
+.sw.s1 { --c: var(--c1); } .sw.s2 { --c: var(--c2); } .sw.s3 { --c: var(--c3); } .sw.s4 { --c: var(--c4); } .sw.s5 { --c: var(--c5); }
 .sw.dash { height: 3px; background: repeating-linear-gradient(90deg, var(--c) 0 5px, transparent 5px 8px); }
 .table-wrap { overflow: auto; max-height: 60vh; border-radius: 10px; border: 1px solid var(--line-soft); background: var(--surface); }
 .grid-table { border-collapse: collapse; width: 100%; font-size: .85rem; font-variant-numeric: tabular-nums; }
@@ -311,7 +311,7 @@ p { margin: 0; }
 @media print {
   :root, :root[data-theme="dark"], :root[data-palette] {
     --bg: #fff; --surface: #fff; --surface2: #f4f6f1; --ink: #111; --ink-soft: #444; --ink-faint: #666;
-    --accent: #1F6554; --line: #ccc; --line-soft: #e3e3e3; --c1: #1F6554; --c2: #D08A2E; --c3: #6E7FD1; --c4: #B4547A;
+    --accent: #1F6554; --line: #ccc; --line-soft: #e3e3e3; --c1: #1F6554; --c2: #D08A2E; --c3: #6E7FD1; --c4: #B4547A; --c5: #9C8A1E;
     color-scheme: light;
   }
   @page { margin: 14mm; }
@@ -344,9 +344,9 @@ p { margin: 0; }
   #print .chart .line { fill: none; stroke-width: 2; stroke: var(--c); }
   #print .chart .area { fill: var(--c); fill-opacity: .8; }
   #print .chart .bar { fill: var(--c); }
-  #print .chart .s1 { --c: var(--c1); } #print .chart .s2 { --c: var(--c2); } #print .chart .s3 { --c: var(--c3); } #print .chart .s4 { --c: var(--c4); }
+  #print .chart .s1 { --c: var(--c1); } #print .chart .s2 { --c: var(--c2); } #print .chart .s3 { --c: var(--c3); } #print .chart .s4 { --c: var(--c4); } #print .chart .s5 { --c: var(--c5); } .chart .s5 { --c: var(--c5); }
   #print .legend { display: flex; gap: 12px; font-size: 8.5pt; }
   #print .sw { display: inline-block; width: 10px; height: 10px; margin-right: 4px; background: var(--c); }
-  #print .sw.s1 { --c: var(--c1); } #print .sw.s2 { --c: var(--c2); } #print .sw.s3 { --c: var(--c3); } #print .sw.s4 { --c: var(--c4); }
+  #print .sw.s1 { --c: var(--c1); } #print .sw.s2 { --c: var(--c2); } #print .sw.s3 { --c: var(--c3); } #print .sw.s4 { --c: var(--c4); } #print .sw.s5 { --c: var(--c5); } .sw.s5 { --c: var(--c5); }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }

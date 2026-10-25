@@ -1,4 +1,4 @@
-import { epf } from '../calc/epf.js';
+import { epf, ACCOUNTS } from '../calc/epf.js';
 import { drawdown } from '../calc/drawdown.js';
 
 const latestDividend = R => R.epf.dividends[0].rate;
@@ -41,12 +41,14 @@ export default {
     const headline = [{ key: 'epfAtEnd', value: e.total, kind: 'money', params: { age: v.endAge } }];
     if (m55 && v.endAge > 55) headline.push({ key: 'epfAt', value: m55.total, kind: 'money', params: { age: 55 } });
     if (m60 && v.endAge > 60) headline.push({ key: 'epfAt', value: m60.total, kind: 'money', params: { age: 60 } });
-    const accounts = ['persaraan', 'sejahtera', 'fleksibel', 'after55'].filter(k => k !== 'after55' || e.balances.after55 > 0);
+    // Accounts that ever hold money in this projection (Akaun 55 and Emas only past 55).
+    const accounts = ACCOUNTS.filter(k => e.years.some(y => y[k] > 0.005));
+    const held = accounts.filter(k => e.balances[k] > 0.005);
     const out = {
       headline,
       groups: [
         { key: 'accountsAt', params: { age: v.endAge }, rows: [
-          ...accounts.map(k => ({ key: 'acc_' + k, value: e.balances[k], kind: 'money' })),
+          ...held.map(k => ({ key: 'acc_' + k, value: e.balances[k], kind: 'money' })),
           { key: 'epfTotal', value: e.total, kind: 'money', strong: true },
         ] },
         { key: 'moneyIn', rows: [
@@ -71,7 +73,7 @@ export default {
           ...accounts.map(k => ({ key: 'acc_' + k, kind: 'money' })), { key: 'colTotal', kind: 'money' }],
         rows: e.years.map(y => [Math.round(y.age), y.salary, y.employee, y.employer, y.voluntary, y.dividend, ...accounts.map(k => y[k]), y.total]),
       }],
-      notes: [{ key: 'noteEpfSplit' }, ...(v.bonusMonths > 0 ? [{ key: 'noteEpfBonus' }] : []), { key: 'noteEpfDividend' }, { key: v.employerMode === 'custom' ? 'noteEpfEmployerCustom' : 'noteEpf60' }],
+      notes: [{ key: 'noteEpfSplit' }, ...(v.endAge > 55 ? [{ key: 'noteEpf55' }] : []), ...(v.bonusMonths > 0 ? [{ key: 'noteEpfBonus' }] : []), { key: 'noteEpfDividend' }, { key: v.employerMode === 'custom' ? 'noteEpfEmployerCustom' : 'noteEpf60' }],
     };
     if (v.planRetire) addRetirement(out, v, d);
     return out;
