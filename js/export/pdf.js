@@ -16,7 +16,7 @@ import { inputRows } from './report.js';
 const PW = 1240, PH = 1754, M = 80, CW = PW - 2 * M;
 const PT_W = 595.28, PT_H = 841.89;
 const INK = '#111111', SOFT = '#555555', LINE = '#dddddd', ACCENT = '#1F6554';
-const SERIES = ['#1F6554', '#D08A2E', '#6E7FD1', '#B4547A'];
+const SERIES = ['#1F6554', '#D08A2E', '#6E7FD1', '#B4547A', '#9C8A1E'];
 const SANS = '-apple-system, "PingFang SC", "Hiragino Sans GB", "Helvetica Neue", "Noto Sans CJK SC", Arial, sans-serif';
 const SERIF = '"Iowan Old Style", Georgia, "Songti SC", "Noto Serif CJK SC", serif';
 const MAX_ROWS = 120;

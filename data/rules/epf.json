@@ -39,6 +39,12 @@
       "name": "Malaysia inflation, long-run average about 2.9% a year (worlddata.info); 1.4% in 2025 (DOSM)",
       "url": "https://www.worlddata.info/asia/malaysia/inflation-rates.php",
       "via": "search"
+    },
+    {
+      "id": "kwsp-55",
+      "name": "Akaun 55 and Akaun Emas: at 55 balances move to Akaun 55; later contributions go to Akaun Emas, withdrawable from 60 (malaysia.gov.my, Malaysiakini)",
+      "url": "https://www.malaysia.gov.my/my/categories/persaraan/persaraan-pencarum-kwsp/pengeluaran-kwsp-umur-60-tahun",
+      "via": "search"
     }
   ],
   "employee": {
@@ -58,7 +64,13 @@
     "sejahtera": 15,
     "fleksibel": 10,
     "untilAge": 55,
-    "source": "kwsp-accounts"
+    "source": "kwsp-accounts",
+    "at55": {
+      "mergeInto": "akaun55",
+      "newMoneyTo": "emas",
+      "emasWithdrawAge": 60,
+      "source": "kwsp-55"
+    }
   },
   "dividends": [
     {

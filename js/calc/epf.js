@@ -1,9 +1,11 @@
 /* EPF projection.
 
    Month by month: salary × (employee + employer rate) goes in, split
-   75 / 15 / 10 into Akaun Persaraan, Sejahtera and Fleksibel until 55;
-   from 55 new money goes to one combined account. Each account earns the
-   dividend on its own balance.
+   75 / 15 / 10 into Akaun Persaraan, Sejahtera and Fleksibel until 55.
+   At 55 KWSP moves those three balances into Akaun 55 (withdrawable at
+   any time), and contributions from then on go to Akaun Emas
+   (withdrawable from 60). Each account earns the dividend on its own
+   balance.
 
    A bonus (in months of salary) is paid in the last month of each year.
    EPF is due on it at the same rates; the employer rate is the one for
@@ -15,7 +17,8 @@
    contribution starts earning the month after it is credited. Dividends
    are credited once every twelve months. */
 
-export const ACCOUNTS = ['persaraan', 'sejahtera', 'fleksibel', 'after55'];
+export const ACCOUNTS = ['persaraan', 'sejahtera', 'fleksibel', 'akaun55', 'emas'];
+const BEFORE_55 = ['persaraan', 'sejahtera', 'fleksibel'];
 
 export function employerRate(rules, age, salary) {
   const e = rules.employer;
@@ -24,12 +27,12 @@ export function employerRate(rules, age, salary) {
 }
 
 export function epf(i, rules) {
-  const bal = { persaraan: i.persaraan || 0, sejahtera: i.sejahtera || 0, fleksibel: i.fleksibel || 0, after55: 0 };
+  const bal = { persaraan: i.persaraan || 0, sejahtera: i.sejahtera || 0, fleksibel: i.fleksibel || 0, akaun55: 0, emas: 0 };
   const split = rules.split;
   const months = Math.max(0, Math.round((i.endAge - i.age) * 12));
   const dRate = i.dividend / 100 / 12;
   let salary = i.salary;
-  const zero = () => ({ persaraan: 0, sejahtera: 0, fleksibel: 0, after55: 0 });
+  const zero = () => ({ persaraan: 0, sejahtera: 0, fleksibel: 0, akaun55: 0, emas: 0 });
   let accrued = zero();
   let yr = { employee: 0, employer: 0, voluntary: 0, dividend: 0, bonus: 0 };
   const tot = { employee: 0, employer: 0, voluntary: 0, dividend: 0, bonus: 0 };
@@ -40,12 +43,22 @@ export function epf(i, rules) {
       bal.persaraan += amount * split.persaraan / 100;
       bal.sejahtera += amount * split.sejahtera / 100;
       bal.fleksibel += amount * split.fleksibel / 100;
-    } else bal.after55 += amount;
+    } else bal.emas += amount;
   };
   const total = () => ACCOUNTS.reduce((a, k) => a + bal[k], 0);
+  // Reaching 55: the three accounts, and the dividend they have earned so
+  // far this year, move into Akaun 55. Someone already 55 starts that way.
+  const merge = () => {
+    for (const k of BEFORE_55) {
+      bal.akaun55 += bal[k]; bal[k] = 0;
+      accrued.akaun55 += accrued[k]; accrued[k] = 0;
+    }
+  };
 
+  let merged = false;
   for (let m = 0; m < months; m++) {
     const age = i.age + m / 12;
+    if (!merged && age >= split.untilAge - 1e-9) { merge(); merged = true; }
     if (m > 0 && m % 12 === 0) salary *= 1 + (i.growth || 0) / 100;
     const working = age < (i.retireAge ?? i.endAge);
     const eeRate = age >= 60 ? i.employeeRate60 ?? rules.employee.from60 : i.employeeRate;

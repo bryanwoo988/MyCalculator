@@ -1,5 +1,20 @@
 [
   {
+    "v": "1.3.2",
+    "date": "2026-10-25",
+    "notes": {
+      "en": [
+        "EPF: at 55 the three accounts now combine into Akaun 55, and later contributions go to Akaun Emas, as on your KWSP statement (was shown as “After 55”)."
+      ],
+      "zh": [
+        "EPF：满 55 岁时三个户口合并成 Akaun 55，之后的缴纳进 Akaun Emas，跟 KWSP 结单一致（之前显示为“55 岁以后”）。"
+      ],
+      "ms": [
+        "KWSP: pada umur 55 ketiga-tiga akaun kini digabungkan ke Akaun 55, dan caruman selepas itu masuk ke Akaun Emas, seperti penyata KWSP anda (dahulu ditunjukkan sebagai “Selepas 55”)."
+      ]
+    }
+  },
+  {
     "v": "1.3.1",
     "date": "2026-10-25",
     "notes": {
