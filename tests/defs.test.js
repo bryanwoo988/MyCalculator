@@ -13,7 +13,7 @@ for (const f of readdirSync(new URL('../data/rules/', import.meta.url))) {
 function finite(result) {
   const nums = [];
   for (const h of result.headline) nums.push(h.value);
-  for (const g of result.groups) for (const r of g.rows) if (r.kind !== 'text') nums.push(r.value);
+  for (const g of result.groups) for (const r of g.rows) if (r.kind !== 'text' && r.kind !== 'raw') nums.push(r.value);
   for (const c of result.charts) for (const s of c.series) nums.push(...s.values);
   for (const t of result.tables) for (const row of t.rows) for (const x of row) if (x !== null) nums.push(x);
   for (const n of nums) assert.ok(Number.isFinite(n), `not finite: ${n}`);
@@ -52,4 +52,18 @@ test('car: early settlement group appears', () => {
     finite(r);
     assert.ok(r.groups.some(g => g.key === 'settleGroup'));
   }
+});
+
+test('epf: the optional retirement section adds income figures', () => {
+  const def = CALCS.find(c => c.id === 'epf');
+  const off = def.compute(defaults(def, R), R);
+  assert.ok(!off.groups.some(g => g.key === 'retireGroup'));
+  const on = def.compute({ ...defaults(def, R), planRetire: true }, R);
+  finite(on);
+  assert.equal(on.headline[1].key, 'retireMonthly');
+  assert.ok(on.headline[1].value > 0);
+  assert.ok(on.groups.some(g => g.key === 'retireGroup'));
+  assert.equal(on.tables.at(-1).rows.length, 20); // 60 to 80
+  const short = def.compute({ ...defaults(def, R), planRetire: true, lifeAge: 55 }, R);
+  assert.ok(short.notes.some(n => n.key === 'noteRetireNeedsAge'));
 });

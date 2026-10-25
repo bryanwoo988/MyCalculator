@@ -253,3 +253,30 @@ test('EPF: a yearly bonus adds contributions at the monthly-salary rates', () =>
   // No bonus after work stops.
   near(epf({ ...base, bonusMonths: 2, retireAge: 30 }, r).totals.bonus, 0);
 });
+
+test('drawdown: no return, no inflation spreads the balance evenly', async () => {
+  const { drawdown } = await import('../js/calc/drawdown.js');
+  const d = drawdown({ balance: 240000, nowAge: 60, startAge: 60, lifeAge: 80, returnPct: 0, inflation: 0 });
+  near(d.monthly, 1000);
+  near(d.years.at(-1).balance, 0);
+  assert.equal(d.years.length, 20);
+});
+
+test('drawdown: with a return and no inflation it is an annuity due', async () => {
+  const { drawdown } = await import('../js/calc/drawdown.js');
+  const r = 0.05 / 12, n = 240, B = 1e6;
+  const d = drawdown({ balance: B, nowAge: 60, startAge: 60, lifeAge: 80, returnPct: 5, inflation: 0 });
+  near(d.monthly, B * r / (1 - Math.pow(1 + r, -n)) / (1 + r));
+  near(d.level, d.monthly);
+});
+
+test('drawdown: inflation raises the payout yearly and today’s money deflates it', async () => {
+  const { drawdown } = await import('../js/calc/drawdown.js');
+  const d = drawdown({ balance: 1e6, nowAge: 30, startAge: 60, lifeAge: 80, returnPct: 5, inflation: 3 });
+  near(d.years[1].monthly, d.years[0].monthly * 1.03);
+  near(d.lastMonthly, d.monthly * Math.pow(1.03, 19));
+  near(d.monthlyToday, d.monthly / Math.pow(1.03, 30));
+  assert.ok(d.monthly < d.level); // a rising payout starts lower
+  near(d.years.at(-1).balance, 0, 0.05);
+  assert.equal(drawdown({ balance: 1e6, nowAge: 60, startAge: 80, lifeAge: 70, returnPct: 5, inflation: 3 }), null);
+});

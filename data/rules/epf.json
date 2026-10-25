@@ -27,6 +27,18 @@
       "name": "SQL Payroll — What is subject to EPF? (bonus months keep the employer rate of the monthly salary)",
       "url": "https://www.sql.com.my/sqlpayroll/kwsp/",
       "via": "search"
+    },
+    {
+      "id": "dosm-life",
+      "name": "DOSM — Abridged Life Tables, Malaysia 2025 (at 60: men 18.8 more years, women 21.6)",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/abridged-life-tables-malaysia-2025",
+      "via": "search"
+    },
+    {
+      "id": "cpi-long",
+      "name": "Malaysia inflation, long-run average about 2.9% a year (worlddata.info); 1.4% in 2025 (DOSM)",
+      "url": "https://www.worlddata.info/asia/malaysia/inflation-rates.php",
+      "via": "search"
     }
   ],
   "employee": {
@@ -75,5 +87,13 @@
   "bonus": {
     "employerRateFollowsSalary": true,
     "source": "bonus-rate"
+  },
+  "retirement": {
+    "lifeAge": 80,
+    "lifeSource": "dosm-life",
+    "inflation": 3,
+    "inflationSource": "cpi-long",
+    "returnPct": 5,
+    "returnNote": "below recent EPF dividends (5.5–6.3%), above the 2.5% legal minimum"
   }
 }

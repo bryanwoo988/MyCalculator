@@ -60,6 +60,7 @@ test('every result label has text, in every mode', () => {
     const variants = [base];
     for (const f of def.fields.filter(f => f.type === 'select')) for (const o of f.options) variants.push({ ...base, [f.id]: o.v });
     if (def.id === 'home') variants.push({ ...base, segments: [{ fromYear: 2, rate: 5 }], prepayments: [{ month: 3, amount: 1000, every: 0 }], firstHome: true, price: 400000, netIncome: 9000, valuation: 1, insurance: 1, disbursement: 1, otherCosts: 1 }, { ...base, firstHome: true, price: 900000 });
+    if (def.id === 'epf') variants.push({ ...base, planRetire: true }, { ...base, planRetire: true, lifeAge: 50 });
     if (def.id === 'car') variants.push({ ...base, settleAfter: 12 }, { ...base, method: 'flat', settleAfter: 12 });
     if (def.id === 'tax') variants.push({ ...base, employment: 30000, spouse: true, zakat: 10, pcb: 99999, lifestyle: 1, childUnder18: 1 }, { ...base, mode: 'company', paidUp: 9e6 });
     for (const v of variants) walk(def.compute(v, R));
