@@ -5,6 +5,11 @@
    from 55 new money goes to one combined account. Each account earns the
    dividend on its own balance.
 
+   A bonus (in months of salary) is paid in the last month of each year.
+   EPF is due on it at the same rates; the employer rate is the one for
+   the monthly salary, so a bonus that lifts that month above RM5,000 does
+   not drop 13% to 12% (rules.bonus).
+
    Dividend timing approximates KWSP's daily-balance method at month
    resolution: a month's opening balance earns for the whole month, and a
    contribution starts earning the month after it is credited. Dividends
@@ -26,8 +31,8 @@ export function epf(i, rules) {
   let salary = i.salary;
   const zero = () => ({ persaraan: 0, sejahtera: 0, fleksibel: 0, after55: 0 });
   let accrued = zero();
-  let yr = { employee: 0, employer: 0, voluntary: 0, dividend: 0 };
-  const tot = { employee: 0, employer: 0, voluntary: 0, dividend: 0 };
+  let yr = { employee: 0, employer: 0, voluntary: 0, dividend: 0, bonus: 0 };
+  const tot = { employee: 0, employer: 0, voluntary: 0, dividend: 0, bonus: 0 };
   const years = [], milestones = {};
 
   const put = (amount, age) => {
@@ -43,15 +48,17 @@ export function epf(i, rules) {
     const age = i.age + m / 12;
     if (m > 0 && m % 12 === 0) salary *= 1 + (i.growth || 0) / 100;
     const working = age < (i.retireAge ?? i.endAge);
-    const ee = working ? salary * (age >= 60 ? i.employeeRate60 ?? rules.employee.from60 : i.employeeRate) / 100 : 0;
+    const eeRate = age >= 60 ? i.employeeRate60 ?? rules.employee.from60 : i.employeeRate;
     const erRate = i.employerMode === 'custom' ? i.employerRate : employerRate(rules, age, salary);
-    const er = working ? salary * erRate / 100 : 0;
+    const bonus = working && m % 12 === 11 ? salary * (i.bonusMonths || 0) : 0;
+    const ee = working ? (salary + bonus) * eeRate / 100 : 0;
+    const er = working ? (salary + bonus) * erRate / 100 : 0;
     const vol = m % 12 === 0 ? (i.voluntary || 0) : 0;
 
     // Dividend accrues on the opening balance; this month's money waits.
     for (const k of ACCOUNTS) accrued[k] += bal[k] * dRate;
     put(ee + er + vol, age);
-    yr.employee += ee; yr.employer += er; yr.voluntary += vol;
+    yr.employee += ee; yr.employer += er; yr.voluntary += vol; yr.bonus += bonus;
 
     const endOfYear = m % 12 === 11 || m === months - 1;
     if (endOfYear) {
@@ -62,7 +69,7 @@ export function epf(i, rules) {
       for (const k of Object.keys(tot)) tot[k] += yr[k];
       const endAge = i.age + (m + 1) / 12;
       years.push({ age: endAge, salary, ...yr, ...bal, total: total() });
-      yr = { employee: 0, employer: 0, voluntary: 0, dividend: 0 };
+      yr = { employee: 0, employer: 0, voluntary: 0, dividend: 0, bonus: 0 };
     }
     const ageAfter = i.age + (m + 1) / 12;
     for (const mark of [55, 60]) {

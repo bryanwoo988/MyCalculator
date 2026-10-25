@@ -9,7 +9,7 @@
    any file — index.html included — makes installed copies update. */
 
 /* --- generated:begin --- */
-const CACHE = 'mycalc-42a775411e';
+const CACHE = 'mycalc-29c9953f13';
 const ASSETS = [
   './',
   'css/app.css',

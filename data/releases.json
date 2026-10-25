@@ -1,5 +1,20 @@
 [
   {
+    "v": "1.2.0",
+    "date": "2026-10-25",
+    "notes": {
+      "en": [
+        "EPF: add a yearly bonus (in months of salary); EPF on the bonus is included in the projection."
+      ],
+      "zh": [
+        "EPF：可以加入每年花红（几个月薪水），花红的 EPF 会算进预测里。"
+      ],
+      "ms": [
+        "KWSP: tambah bonus tahunan (dalam bulan gaji); KWSP atas bonus dimasukkan dalam unjuran."
+      ]
+    }
+  },
+  {
     "v": "1.1.0",
     "date": "2026-10-25",
     "notes": {
