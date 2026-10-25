@@ -1,0 +1,14 @@
+{
+  "id": "hire-purchase",
+  "rev": 1,
+  "asOf": "2026-10-25",
+  "reviewBy": "2027-04-01",
+  "sources": [
+    { "id": "bnm-hp", "name": "BNM — Five key highlights of the Hire-Purchase (Amendment) Act 2026", "url": "https://www.bnm.gov.my/documents/20124/40668/HP+Consumer+Guide_EN_2026.pdf", "via": "search" },
+    { "id": "vibes", "name": "In effect from June 1: Hire Purchase (Amendment) Act 2026 (The Vibes)", "url": "https://www.thevibes.com/articles/news/123181/in-effect-from-june-1-hire-purchase-amendment-act-2026-a-breath-of-fresh-air-for-borrowers", "via": "search" }
+  ],
+  "reducingBalanceFrom": "2026-06-01",
+  "graceUntil": "2027-03-31",
+  "maxTenureYears": 9,
+  "source": "bnm-hp"
+}

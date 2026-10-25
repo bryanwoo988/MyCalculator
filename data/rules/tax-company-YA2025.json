@@ -1,0 +1,23 @@
+{
+  "id": "tax-company-YA2025",
+  "rev": 1,
+  "ya": 2025,
+  "asOf": "2026-10-25",
+  "reviewBy": "2027-03-01",
+  "sources": [
+    { "id": "pwc-cit", "name": "PwC Worldwide Tax Summaries — Malaysia, taxes on corporate income", "url": "https://taxsummaries.pwc.com/Malaysia/Corporate/Taxes-on-corporate-income", "via": "search" },
+    { "id": "pwc-mtb", "name": "PwC 2025/2026 Malaysian Tax Booklet", "url": "https://pwc.com/my/en/publications/mtb/corporate-income-tax.html", "via": "search" }
+  ],
+  "standardRate": 24,
+  "sme": {
+    "paidUpMax": 2500000,
+    "grossIncomeMax": 50000000,
+    "foreignOwnershipMaxPct": 20,
+    "bands": [
+      { "upTo": 150000, "rate": 15 },
+      { "upTo": 600000, "rate": 17 },
+      { "upTo": null, "rate": 24 }
+    ]
+  },
+  "source": "pwc-cit"
+}
