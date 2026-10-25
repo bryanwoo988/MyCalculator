@@ -1,11 +1,38 @@
 [
   {
+    "v": "1.1.0",
+    "date": "2026-10-25",
+    "notes": {
+      "en": [
+        "EPF: you can now enter your employer's contribution rate. The statutory rate (13% / 12%, 4% from 60) stays the default."
+      ],
+      "zh": [
+        "EPF：现在可以自己填写雇主缴纳率。默认仍是法定比率（13% / 12%，60 岁起 4%）。"
+      ],
+      "ms": [
+        "KWSP: kini anda boleh memasukkan kadar caruman majikan sendiri. Kadar berkanun (13% / 12%, 4% mulai 60) kekal sebagai lalai."
+      ]
+    }
+  },
+  {
     "v": "1.0.0",
     "date": "2026-10-25",
     "notes": {
-      "en": ["First release: compound interest, EPF, home loan, car loan and income tax calculators.", "Save projections, export to PDF or Excel, back up and restore.", "English, 中文 and Bahasa Melayu; eight light and dark themes."],
-      "zh": ["第一版：复利、EPF、房贷、车贷和所得税计算器。", "可以存下计算记录、导出 PDF 或 Excel、备份和还原。", "English、中文和 Bahasa Melayu；八种浅色和深色主题。"],
-      "ms": ["Keluaran pertama: kalkulator faedah kompaun, KWSP, pinjaman rumah, pinjaman kereta dan cukai pendapatan.", "Simpan unjuran, eksport ke PDF atau Excel, sandar dan pulihkan.", "English, 中文 dan Bahasa Melayu; lapan tema cerah dan gelap."]
+      "en": [
+        "First release: compound interest, EPF, home loan, car loan and income tax calculators.",
+        "Save projections, export to PDF or Excel, back up and restore.",
+        "English, 中文 and Bahasa Melayu; eight light and dark themes."
+      ],
+      "zh": [
+        "第一版：复利、EPF、房贷、车贷和所得税计算器。",
+        "可以存下计算记录、导出 PDF 或 Excel、备份和还原。",
+        "English、中文和 Bahasa Melayu；八种浅色和深色主题。"
+      ],
+      "ms": [
+        "Keluaran pertama: kalkulator faedah kompaun, KWSP, pinjaman rumah, pinjaman kereta dan cukai pendapatan.",
+        "Simpan unjuran, eksport ke PDF atau Excel, sandar dan pulihkan.",
+        "English, 中文 dan Bahasa Melayu; lapan tema cerah dan gelap."
+      ]
     }
   }
 ]
