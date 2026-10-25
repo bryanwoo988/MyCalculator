@@ -77,8 +77,8 @@ export default {
   noteCompound: 'Interest is added monthly at the rate equivalent to the compounding you chose.',
 
   /* ----- EPF ----- */
-  'epf.age': 'Your age now', 'epf.endAge': 'Project until age', 'epf.retireAge': 'Stop working at age',
-  'epf.retireAge.hint': 'Contributions stop at this age; dividends continue.',
+  'epf.age': 'Your age now', 'epf.retireAge': 'Retire at age',
+  'epf.retireAge.hint': 'Contributions stop and the projection ends at this age. Retirement income (below) starts here.',
   'epf.salary': 'Monthly salary', 'epf.growth': 'Salary increase per year',
   'epf.bonusMonths': 'Bonus per year (months of salary)',
   'epf.bonusMonths.hint': 'For example 2 for a two-month bonus. EPF is deducted from bonuses too.',
@@ -86,7 +86,7 @@ export default {
   noteEpfBonus: 'The bonus is counted once a year, in the last month. EPF on it uses the same rates, and the employer keeps the rate of your monthly salary (13% stays 13% even if the bonus month goes above RM5,000).',
   'epf.sec_retirement': 'Retirement income (optional)',
   'epf.planRetire': 'Work out my monthly income in retirement',
-  'epf.planRetire.hint': 'Spends the EPF balance at “Project until age” from that age until the age below.',
+  'epf.planRetire.hint': 'Spends the EPF balance from your retirement age until the age below.',
   'epf.lifeAge': 'Money should last until age',
   'epf.lifeAge.hint': 'DOSM 2025: at 60, men live about 18.8 more years and women 21.6. Planning to 85 or 90 is safer.',
   'epf.inflation': 'Inflation per year',

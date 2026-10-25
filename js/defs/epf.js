@@ -9,8 +9,9 @@ export default {
   rules: ['epf'],
   fields: [
     { id: 'age', type: 'int', def: 30, min: 16, max: 74 },
-    { id: 'endAge', type: 'int', def: 60, min: 17, max: 75 },
-    { id: 'retireAge', type: 'int', def: 60, min: 16, max: 75 },
+    // One age for both: contributions stop, the projection ends and, if
+    // planned, retirement spending starts.
+    { id: 'retireAge', type: 'int', def: 60, min: 17, max: 75 },
     { id: 'salary', type: 'money', def: 5000, min: 0 },
     { id: 'growth', type: 'pct', def: 3, min: 0, max: 50 },
     { id: 'bonusMonths', type: 'number', def: 0, min: 0, max: 24, step: 0.5 },
@@ -24,7 +25,7 @@ export default {
     { id: 'employerRate', type: 'pct', def: R => R.epf.employer.under60LowWage, min: 0, max: 100, show: v => v.employerMode === 'custom' },
     { id: 'voluntary', type: 'money', def: 0, min: 0 },
     { id: 'dividend', type: 'pct', def: latestDividend, min: 0, max: 20 },
-    // Optional: turn the balance at "Project until age" into a monthly income.
+    // Optional: turn the balance at retirement into a monthly income.
     { type: 'section', id: 'retirement' },
     { id: 'planRetire', type: 'toggle', def: false },
     { id: 'lifeAge', type: 'int', def: R => R.epf.retirement.lifeAge, min: 18, max: 110, show: v => v.planRetire },
@@ -32,7 +33,8 @@ export default {
     { id: 'drawReturn', type: 'pct', def: R => R.epf.retirement.returnPct, min: 0, max: 20, show: v => v.planRetire },
   ],
 
-  compute(v, R) {
+  compute(input, R) {
+    const v = { ...input, endAge: input.retireAge };
     const e = epf(v, R.epf);
     const d = v.planRetire
       ? drawdown({ balance: e.total, nowAge: v.age, startAge: v.endAge, lifeAge: v.lifeAge, returnPct: v.drawReturn, inflation: v.inflation })

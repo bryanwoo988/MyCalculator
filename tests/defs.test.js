@@ -67,3 +67,15 @@ test('epf: the optional retirement section adds income figures', () => {
   const short = def.compute({ ...defaults(def, R), planRetire: true, lifeAge: 55 }, R);
   assert.ok(short.notes.some(n => n.key === 'noteRetireNeedsAge'));
 });
+
+test('epf: one retirement age ends contributions, the projection and starts spending', () => {
+  const def = CALCS.find(c => c.id === 'epf');
+  assert.ok(!def.fields.some(f => f.id === 'endAge'));
+  const r = def.compute({ ...defaults(def, R), retireAge: 58, planRetire: true }, R);
+  assert.equal(r.headline[0].params.age, 58);
+  assert.equal(r.tables[0].rows.at(-1)[0], 58);           // contributions table ends at 58
+  assert.equal(r.tables.at(-1).rows[0][0], 58);           // spending starts at 58
+  // A saved record from before still opens: its endAge is ignored.
+  const old = def.compute({ ...defaults(def, R), endAge: 75, retireAge: 60 }, R);
+  assert.equal(old.headline[0].params.age, 60);
+});
