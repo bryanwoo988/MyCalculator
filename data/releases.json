@@ -4,13 +4,16 @@
     "date": "2026-10-25",
     "notes": {
       "en": [
-        "EPF: you can now enter your employer's contribution rate. The statutory rate (13% / 12%, 4% from 60) stays the default."
+        "EPF: you can now enter your employer's contribution rate. The statutory rate (13% / 12%, 4% from 60) stays the default.",
+        "PDF now works in the app added to the iPhone home screen: it makes the file and opens the share sheet, so you can save it to Files or send it."
       ],
       "zh": [
-        "EPF：现在可以自己填写雇主缴纳率。默认仍是法定比率（13% / 12%，60 岁起 4%）。"
+        "EPF：现在可以自己填写雇主缴纳率。默认仍是法定比率（13% / 12%，60 岁起 4%）。",
+        "加到 iPhone 主屏幕的 App 现在也能导出 PDF：直接生成文件并打开分享菜单，可以存到“文件”或发送出去。"
       ],
       "ms": [
-        "KWSP: kini anda boleh memasukkan kadar caruman majikan sendiri. Kadar berkanun (13% / 12%, 4% mulai 60) kekal sebagai lalai."
+        "KWSP: kini anda boleh memasukkan kadar caruman majikan sendiri. Kadar berkanun (13% / 12%, 4% mulai 60) kekal sebagai lalai.",
+        "PDF kini berfungsi dalam aplikasi yang ditambah ke skrin utama iPhone: fail dibuat dan menu kongsi dibuka, jadi anda boleh simpan ke Fail atau hantar."
       ]
     }
   },

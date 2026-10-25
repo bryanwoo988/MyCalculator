@@ -29,8 +29,9 @@ export default {
   deleteConfirm: 'Padam “{name}”?',
   lastBackup: 'Sandaran terakhir: {date}.', neverBackedUp: 'Belum disandarkan.', backupNow: 'Sandarkan sekarang',
 
-  printHint: 'Di skrin cetak pilih “Simpan sebagai PDF” (iPhone: tekan Kongsi → Simpan ke Fail).',
-  printUnavailable: 'Cetakan tidak tersedia di sini. Buka aplikasi dalam Safari atau Chrome untuk menyimpan PDF.',
+  printHint: 'Di skrin cetak pilih “Simpan sebagai PDF”.',
+  fileReady: 'Fail sedia', shareFile: 'Kongsi atau simpan',
+  pdfMaking: 'Sedang membuat PDF…', pdfFailed: 'PDF tidak dapat dibuat. Cuba eksport Excel, atau buka aplikasi dalam Safari.',
   generated: 'Dijana', rulesUsed: 'Kadar dan sumber', sheetSummary: 'Ringkasan',
   monthlyInExcel: 'Jadual bulan demi bulan ada dalam eksport Excel.',
   disclaimer: 'Anggaran untuk perancangan sahaja, bukan nasihat kewangan atau cukai. Angka muktamad daripada bank, KWSP dan LHDN.',

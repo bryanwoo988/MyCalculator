@@ -29,8 +29,9 @@ export default {
   deleteConfirm: 'Delete “{name}”?',
   lastBackup: 'Last backup: {date}.', neverBackedUp: 'Not backed up yet.', backupNow: 'Back up now',
 
-  printHint: 'In the print screen choose “Save as PDF” (iPhone: tap Share → Save to Files).',
-  printUnavailable: 'Printing is not available here. Open the app in Safari or Chrome to save a PDF.',
+  printHint: 'In the print screen choose “Save as PDF”.',
+  fileReady: 'File ready', shareFile: 'Share or save',
+  pdfMaking: 'Making the PDF…', pdfFailed: 'Could not make the PDF. Try the Excel export, or open the app in Safari.',
   generated: 'Generated', rulesUsed: 'Rates and sources', sheetSummary: 'Summary',
   monthlyInExcel: 'The month-by-month schedule is in the Excel export.',
   disclaimer: 'Estimates for planning only, not financial or tax advice. Banks, KWSP and LHDN have the final figures.',

@@ -29,8 +29,9 @@ export default {
   deleteConfirm: '删除"{name}"？',
   lastBackup: '上次备份：{date}。', neverBackedUp: '还没有备份。', backupNow: '现在备份',
 
-  printHint: '在打印画面选"存为 PDF"（iPhone：按分享 → 存储到"文件"）。',
-  printUnavailable: '这里无法打印。请用 Safari 或 Chrome 打开 App 再存 PDF。',
+  printHint: '在打印画面选“存为 PDF”。',
+  fileReady: '文件已准备好', shareFile: '分享或存储',
+  pdfMaking: '正在生成 PDF……', pdfFailed: 'PDF 生成失败。可以改用 Excel 导出，或在 Safari 里打开 App。',
   generated: '生成日期', rulesUsed: '比率和来源', sheetSummary: '摘要',
   monthlyInExcel: '逐月还款表在 Excel 导出里。',
   disclaimer: '仅供规划参考的估算，不是财务或税务建议。最终数字以银行、KWSP 和 LHDN 为准。',
