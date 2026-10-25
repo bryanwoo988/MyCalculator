@@ -51,7 +51,9 @@ async function boot() {
   chrome();
   addEventListener('hashchange', route);
   route();
-  $('#splash')?.classList.add('is-done');
+  const splash = $('#splash');
+  splash?.classList.add('is-done');
+  setTimeout(() => splash?.remove(), 600); // never left over the page to catch taps
   if (!p.chosen) showPicker();
 
   window.WhatsNew?.init({

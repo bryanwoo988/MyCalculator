@@ -1,5 +1,20 @@
 [
   {
+    "v": "1.3.1",
+    "date": "2026-10-25",
+    "notes": {
+      "en": [
+        "Fixed: on/off switches (such as “Retirement income”) could not be switched off on iPhone."
+      ],
+      "zh": [
+        "修好：iPhone 上的开关（例如“退休后的收入”）打开后关不了。"
+      ],
+      "ms": [
+        "Dibaiki: suis hidup/mati (seperti “Pendapatan persaraan”) tidak boleh dimatikan pada iPhone."
+      ]
+    }
+  },
+  {
     "v": "1.3.0",
     "date": "2026-10-25",
     "notes": {
