@@ -20,6 +20,21 @@ function append(n, children) {
 }
 
 export const $ = (s, r = document) => r.querySelector(s);
+
+/* A small ⓘ button and the explanation it shows and hides underneath.
+   Explanations stay out of the way until someone asks for one. */
+let infoSeq = 0;
+export function infoToggle(text, ariaLabel) {
+  const id = `info-${++infoSeq}`;
+  const body = el('p', { class: 'info-text', id, hidden: true }, text);
+  const btn = el('button', { type: 'button', class: 'info-btn', 'aria-expanded': 'false', 'aria-controls': id, 'aria-label': ariaLabel, onclick: e => {
+    e.preventDefault(); e.stopPropagation();
+    const open = body.hidden;
+    body.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+  } }, 'i');
+  return { btn, body };
+}
 export const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 // Line icons, 24×24, stroked with currentColor.

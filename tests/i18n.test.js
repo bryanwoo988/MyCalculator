@@ -67,6 +67,9 @@ test('every result label has text, in every mode', () => {
   }
   for (const k of keys) if (TABLES.en[k] === undefined) missing.push(k);
   assert.deepEqual(missing.splice(0), []);
+  // Every ⓘ explanation belongs to a figure some result really shows.
+  const orphans = Object.keys(TABLES.en).filter(k => k.startsWith('exp_') && !keys.has(k.slice(4)));
+  assert.deepEqual(orphans, []);
 });
 
 test('every rule file has a name', () => {

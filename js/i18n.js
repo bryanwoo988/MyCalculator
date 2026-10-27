@@ -28,6 +28,9 @@ export function label(calc, id, l = lang) {
   return t('f_' + id, null, l);
 }
 
+// Explanation of a result figure, or '' when it needs none.
+export const explanation = (key, l = lang) => TABLES[l]?.['exp_' + key] ?? en['exp_' + key] ?? '';
+
 export function hint(calc, id, l = lang) {
   const k = `${calc}.${id}.hint`;
   return TABLES[l]?.[k] ?? en[k] ?? TABLES[l]?.[`f_${id}.hint`] ?? en[`f_${id}.hint`] ?? '';

@@ -5,7 +5,7 @@
    marked and leaves the last good value in place. Fields with show(v)
    appear and disappear as the other inputs change. */
 
-import { el, icon } from './dom.js';
+import { el, icon, infoToggle } from './dom.js';
 import { t, label, hint } from '../i18n.js';
 import { inputValue, parseNumber, money } from '../format.js';
 
@@ -88,7 +88,14 @@ function field(def, f, v, R, changed) {
   } else if (NUMERIC.has(f.type)) {
     wrap.append(el('label', { class: 'field-label', for: id }, label(def.id, f.id)), numberBox(id, f, () => v[f.id], x => { v[f.id] = x; changed(); }));
   }
-  if (text) wrap.append(el('p', { class: 'field-hint' }, text));
+  const lab = wrap.querySelector(':scope > .field-label');
+  if (text && lab) {
+    const { btn, body } = infoToggle(text, t('explain'));
+    const line = el('div', { class: 'label-line' });
+    lab.replaceWith(line);
+    line.append(lab, btn);
+    wrap.append(body);
+  } else if (text) wrap.append(el('p', { class: 'field-hint' }, text));
   if (f.cap) wrap.append(capLine);
   setCap();
   return wrap;
