@@ -151,6 +151,19 @@ p { margin: 0; }
 .field-label { font-weight: 600; font-size: .95rem; }
 .field-label.small { font-size: .8rem; font-weight: 600; color: var(--ink-soft); }
 .field-hint, .field-cap { font-size: .82rem; color: var(--ink-faint); }
+.label-line { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.info-btn {
+  flex: none; width: 22px; height: 22px; border-radius: 50%; padding: 0; vertical-align: middle;
+  border: 1.5px solid var(--ink-faint); background: none; color: var(--ink-soft);
+  font: italic 700 13px/1 Georgia, serif; display: inline-grid; place-items: center; cursor: pointer;
+  position: relative;
+}
+.info-btn::after { content: ""; position: absolute; inset: -11px; } /* 44px touch target */
+.info-btn[aria-expanded="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.info-text { margin: 0; font-size: .85rem; color: var(--ink-soft); background: var(--surface); border: 1px solid var(--line-soft); border-radius: 10px; padding: 8px 10px; }
+.field-row .info-text { grid-column: 1 / -1; }
+.fig { flex-wrap: wrap; }
+.fig .info-text { flex-basis: 100%; }
 .field-cap:empty { display: none; }
 .num { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; min-height: 46px; }
 .num:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }

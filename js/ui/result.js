@@ -1,8 +1,8 @@
 /* Showing a result: headline numbers, charts, grouped figures, notes and
    the schedule table (yearly, or monthly where there is one). */
 
-import { el } from './dom.js';
-import { t } from '../i18n.js';
+import { el, infoToggle } from './dom.js';
+import { t, explanation } from '../i18n.js';
 import { formatValue } from '../format.js';
 import { chartSvg } from './chart.js';
 
@@ -26,8 +26,7 @@ export function renderResult(result, { detail, onDetail }) {
   for (const g of result.groups) {
     root.append(el('section', { class: 'card' },
       el('h3', {}, t(g.key, g.params)),
-      el('dl', { class: 'figures' }, g.rows.map(r => el('div', { class: 'fig' + (r.strong ? ' strong' : '') },
-        el('dt', {}, rowLabel(r)), el('dd', {}, formatValue(r.kind, r.value, t)))))));
+      el('dl', { class: 'figures' }, g.rows.map(figure))));
   }
 
   for (const tb of result.tables) {
@@ -46,6 +45,19 @@ export function renderResult(result, { detail, onDetail }) {
     root.append(el('section', { class: 'notes' }, result.notes.map(n => el('p', {}, t(n.key, n.params)))));
   }
   return root;
+}
+
+function figure(r) {
+  const text = explanation(r.key);
+  const row = el('div', { class: 'fig' + (r.strong ? ' strong' : '') });
+  const dt = el('dt', {}, rowLabel(r));
+  row.append(dt, el('dd', {}, formatValue(r.kind, r.value, t)));
+  if (text) {
+    const { btn, body } = infoToggle(text, t('explain'));
+    dt.append(' ', btn);
+    row.append(body);
+  }
+  return row;
 }
 
 export function table(cols, rows) {

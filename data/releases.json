@@ -1,5 +1,23 @@
 [
   {
+    "v": "1.5.0",
+    "date": "2026-10-27",
+    "notes": {
+      "en": [
+        "Tap the ⓘ next to an item to see what it means — in every calculator and in the results (EIR, DSR, effective tax rate and more).",
+        "Clearer names where a mistake would change the answer, e.g. “Yearly salary and allowances”, “Children under 18 (number)”."
+      ],
+      "zh": [
+        "点项目旁边的 ⓘ 就能看到说明——每个计算器和结果里都有（EIR、DSR、实际税率等）。",
+        "容易填错的项目改了名称，例如“全年薪水和津贴”、“18 岁以下孩子（人数）”。"
+      ],
+      "ms": [
+        "Tekan ⓘ di sebelah sesuatu item untuk melihat maksudnya — dalam setiap kalkulator dan keputusan (EIR, DSR, kadar cukai efektif dan lain-lain).",
+        "Nama yang lebih jelas di mana kesilapan akan mengubah jawapan, cth. “Gaji dan elaun setahun”, “Anak bawah 18 tahun (bilangan)”."
+      ]
+    }
+  },
+  {
     "v": "1.4.0",
     "date": "2026-10-25",
     "notes": {
